@@ -21,9 +21,12 @@ class HalamanStatisForm
                         Tabs\Tab::make('Konten Halaman')
                             ->schema([
                                 TextInput::make('judul')
-                                    ->required(),
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (\Filament\Forms\Set $set, ?string $state) => $set('judul_seo', \Illuminate\Support\Str::slug($state))),
                                 TextInput::make('judul_seo')
-                                    ->required(),
+                                    ->required()
+                                    ->readOnly(),
                                 RichEditor::make('isi_halaman')
                                     ->required()
                                     ->fileAttachmentsDirectory('halaman_attachments')

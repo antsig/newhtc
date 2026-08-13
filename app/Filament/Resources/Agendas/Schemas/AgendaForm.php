@@ -2,9 +2,14 @@
 
 namespace App\Filament\Resources\Agendas\Schemas;
 
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
 
 class AgendaForm
@@ -14,31 +19,31 @@ class AgendaForm
         return $schema
             ->components([
                 TextInput::make('tema')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('tema_seo', Str::slug($state))),
                 TextInput::make('tema_seo')
-                    ->required(),
-                Textarea::make('isi_agenda')
+                    ->required()
+                    ->maxLength(255)
+                    ->readOnly(),
+                TextInput::make('tempat')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('pengirim')
+                    ->required()
+                    ->maxLength(255),
+                DatePicker::make('tgl_mulai')->required(),
+                DatePicker::make('tgl_selesai')->required(),
+                TimePicker::make('jam')->required(),
+                FileUpload::make('gambar')
+                    ->image()
+                    ->directory('agenda'),
+                RichEditor::make('isi_agenda')
                     ->required()
                     ->columnSpanFull(),
-                TextInput::make('tempat')
-                    ->required(),
-                TextInput::make('pengirim')
-                    ->required(),
-                TextInput::make('gambar'),
-                DatePicker::make('tgl_mulai')
-                    ->required(),
-                DatePicker::make('tgl_selesai')
-                    ->required(),
-                DatePicker::make('tgl_posting')
-                    ->required(),
-                TextInput::make('jam')
-                    ->required(),
-                TextInput::make('dibaca')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                TextInput::make('username')
-                    ->required(),
+                Hidden::make('tgl_posting')->default(date('Y-m-d')),
+                Hidden::make('username')->default('admin'),
             ]);
     }
 }

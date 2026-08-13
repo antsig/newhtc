@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Agendas\Tables;
+namespace App\Filament\Resources\Downloads\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -9,16 +9,15 @@ use Filament\Tables\Table;
 
 use Filament\Tables\Columns\TextColumn;
 
-class AgendasTable
+class DownloadsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('tema')->sortable()->searchable(),
-                TextColumn::make('tempat')->searchable(),
-                TextColumn::make('tgl_mulai')->date()->sortable(),
-                TextColumn::make('tgl_selesai')->date()->sortable(),
+                TextColumn::make('judul')->sortable()->searchable(),
+                TextColumn::make('file')->limit(20),
+                TextColumn::make('hits_download')->sortable(),
             ])
             ->filters([
                 //

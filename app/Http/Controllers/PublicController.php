@@ -52,20 +52,21 @@ class PublicController extends Controller
 
     public function agendaIndex()
     {
-        // For now, return a placeholder view
-        return view('halaman.agenda');
+        $agendas = \App\Models\Agenda::orderBy('tgl_mulai', 'DESC')->paginate(10);
+        return view('halaman.agenda', compact('agendas'));
     }
 
     public function galeriDownload()
     {
-        // For now, return a placeholder view
-        return view('galeri.download');
+        $downloads = \App\Models\Download::orderBy('id', 'DESC')->paginate(20);
+        return view('galeri.download', compact('downloads'));
     }
 
     public function pelatihanDetail($slug)
     {
-        // Placeholder view since we don't have a Pelatihan module yet
-        return view('halaman.pelatihan', compact('slug'));
+        $kategoriNama = ucfirst(str_replace('-', ' ', $slug));
+        $pelatihans = \App\Models\Pelatihan::where('kategori', $kategoriNama)->orderBy('id', 'DESC')->get();
+        return view('halaman.pelatihan', compact('slug', 'pelatihans', 'kategoriNama'));
     }
 
     public function beritaDetail($slug)

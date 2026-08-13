@@ -13,9 +13,12 @@ class KategoriForm
         return $schema
             ->components([
                 TextInput::make('nama_kategori')
-                    ->required(),
+                    ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (\Filament\Forms\Set $set, ?string $state) => $set('kategori_seo', \Illuminate\Support\Str::slug($state))),
                 TextInput::make('kategori_seo')
-                    ->required(),
+                    ->required()
+                    ->readOnly(),
                 TextInput::make('username')
                     ->required(),
                 Select::make('aktif')

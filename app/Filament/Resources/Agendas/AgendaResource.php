@@ -20,6 +20,8 @@ class AgendaResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $recordTitleAttribute = 'tema';
+
     public static function form(Schema $schema): Schema
     {
         return AgendaForm::configure($schema);

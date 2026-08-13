@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Agendas\Tables;
+namespace App\Filament\Resources\Pelatihans\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -8,17 +8,18 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 
-class AgendasTable
+class PelatihansTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('tema')->sortable()->searchable(),
-                TextColumn::make('tempat')->searchable(),
-                TextColumn::make('tgl_mulai')->date()->sortable(),
-                TextColumn::make('tgl_selesai')->date()->sortable(),
+                ImageColumn::make('gambar'),
+                TextColumn::make('kategori')->sortable()->searchable(),
+                TextColumn::make('judul')->sortable()->searchable(),
+                TextColumn::make('jadwal')->date()->sortable(),
             ])
             ->filters([
                 //

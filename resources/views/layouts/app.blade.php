@@ -51,6 +51,30 @@
         .navbar-brand {
             font-weight: bold;
         }
+        
+        /* Dropdown Customization */
+        .main-navbar .dropdown-menu {
+            background-color: #04315a;
+            border: 1px solid #064b8a;
+            border-radius: 0;
+            margin-top: 0;
+            padding: 0;
+        }
+        .main-navbar .dropdown-item {
+            color: white !important;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 12px 15px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #064b8a;
+        }
+        .main-navbar .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        .main-navbar .dropdown-item:hover, .main-navbar .dropdown-item:focus {
+            background-color: #064b8a;
+            color: white !important;
+        }
 
         /* Breaking News */
         .breaking-news-container {
