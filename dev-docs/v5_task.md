@@ -1,0 +1,10 @@
+- `[x]` **Migrasi Data (htcpajak)**
+- `[x]` **Galeri Foto & Video**
+- `[x]` **Media Berita & Editor**
+- `[x]` **Perombakan Menu Pengaturan (Identitas)**
+- `[x]` **Pembuatan Halaman Publik (Detail)**
+- `[x]` **Keamanan**
+- `[x]` **Perbaikan & Integrasi Frontend Publik**
+  - Mengubah link statis menu ke link dinamis (`routes/web.php` & `PublicController`).
+  - Halaman `Profil`, `Kontak`, `Layanan`, dan `Berita` (Index) kini sudah tidak 404 dan berjalan lancar.
+  - Mengubah banner WhatsApp statis di bawah menjadi tombol ikon WA (floating) yang elegan di pojok kanan bawah agar bersahabat untuk layar mobile.

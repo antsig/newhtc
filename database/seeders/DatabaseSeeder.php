@@ -2,24 +2,140 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 1. Identitas Website
+        DB::table('identitas')->truncate();
+        DB::table('identitas')->insert([
+            'nama_website' => 'HTC Training & Consulting',
+            'email' => 'info@htcpajak.com',
+            'url' => 'http://localhost:8000',
+            'facebook' => 'https://facebook.com/htcpajak',
+            'rekening' => 'BCA 123456789 a.n HTC',
+            'no_telp' => '0274-2885536',
+            'meta_deskripsi' => 'Lembaga Konsultasi dan Pelatihan Perpajakan',
+            'meta_keyword' => 'pajak, konsultasi, training',
+            'favicon' => '',
+            'maps' => 'Yogyakarta',
         ]);
+
+        // 2. Kategori
+        DB::table('kategori')->truncate();
+        $katNasionalId = DB::table('kategori')->insertGetId([
+            'nama_kategori' => 'Nasional',
+            'kategori_seo' => 'nasional',
+            'aktif' => 'Y',
+            'username' => 'admin',
+        ]);
+        
+        $katDaerahId = DB::table('kategori')->insertGetId([
+            'nama_kategori' => 'Daerah',
+            'kategori_seo' => 'daerah',
+            'aktif' => 'Y',
+            'username' => 'admin',
+        ]);
+
+        // 3. Berita
+        DB::table('berita')->truncate();
+        $beritaData = [
+            [
+                'id_kategori' => $katNasionalId,
+                'username' => 'admin',
+                'judul' => 'PT. AKUNTAN BANGUN BHUANA JALIN KERJASAMA DENGAN JURNAL.ID',
+                'judul_seo' => Str::slug('PT. AKUNTAN BANGUN BHUANA JALIN KERJASAMA DENGAN JURNAL.ID'),
+                'headline' => 'Y',
+                'aktif' => 'Y',
+                'utama' => 'Y',
+                'isi_berita' => '<p>Yogyakarta – PT. Akuntan Bangun Bhuana menjalin kerjasama dengan Jurnal.id, aplikasi akuntansi online...</p>',
+                'hari' => 'Selasa',
+                'tanggal' => Carbon::now()->subDays(2)->format('Y-m-d'),
+                'jam' => '09:25:31',
+                'dibaca' => 125,
+                'status' => 'Y',
+            ],
+            [
+                'id_kategori' => $katDaerahId,
+                'username' => 'admin',
+                'judul' => 'Webinar Diskusi Aktual Pajak LKBH FH UII',
+                'judul_seo' => Str::slug('Webinar Diskusi Aktual Pajak LKBH FH UII'),
+                'headline' => 'Y',
+                'aktif' => 'Y',
+                'utama' => 'Y',
+                'isi_berita' => '<p>Lembaga Konsultasi dan Bantuan Hukum Fakultas Hukum Universitas Islam Indonesia mengadakan diskusi aktual...</p>',
+                'hari' => 'Senin',
+                'tanggal' => Carbon::now()->subDays(1)->format('Y-m-d'),
+                'jam' => '10:15:00',
+                'dibaca' => 85,
+                'status' => 'Y',
+            ],
+            [
+                'id_kategori' => $katDaerahId,
+                'username' => 'admin',
+                'judul' => 'HTC Training & Consulting Menggelar Pelatihan Komputer Pajak Bersama SMK NEGERI 1 TEMPEL',
+                'judul_seo' => Str::slug('HTC Training & Consulting Menggelar Pelatihan Komputer Pajak Bersama SMK NEGERI 1 TEMPEL'),
+                'headline' => 'Y',
+                'aktif' => 'Y',
+                'utama' => 'Y',
+                'isi_berita' => '<p>Sleman – SMK Negeri 1 Tempel berterima kasih kepada HTC Training & Consulting yang telah bekerja sama menggelar kegiatan Pelatihan Komputer Pajak...</p>',
+                'hari' => 'Rabu',
+                'tanggal' => Carbon::now()->format('Y-m-d'),
+                'jam' => '10:40:43',
+                'dibaca' => 200,
+                'status' => 'Y',
+            ],
+            [
+                'id_kategori' => $katNasionalId,
+                'username' => 'admin',
+                'judul' => 'Sosialisasi Kelas Industri SMK Muhammadiyah Kota Magelang',
+                'judul_seo' => Str::slug('Sosialisasi Kelas Industri SMK Muhammadiyah Kota Magelang'),
+                'headline' => 'Y',
+                'aktif' => 'Y',
+                'utama' => 'Y',
+                'isi_berita' => '<p>PT. Akuntan Bangun Bhuana bersama SMK Muhammadiyah Kota Magelang resmi membuka kelas industri di bidang Perpajakan...</p>',
+                'hari' => 'Kamis',
+                'tanggal' => Carbon::now()->format('Y-m-d'),
+                'jam' => '14:06:33',
+                'dibaca' => 150,
+                'status' => 'Y',
+            ]
+        ];
+        DB::table('berita')->insert($beritaData);
+
+        // 4. Album
+        DB::table('album')->truncate();
+        DB::table('album')->insert([
+            'jdl_album' => 'Tenaga Perpajakan',
+            'album_seo' => 'tenaga-perpajakan',
+            'keterangan' => 'Dokumentasi Tenaga Perpajakan',
+            'gbr_album' => '',
+            'aktif' => 'Y',
+            'hits_album' => 0,
+            'hari' => 'Kamis',
+            'tgl_posting' => Carbon::now()->format('Y-m-d'),
+            'jam' => '10:00:00',
+            'username' => 'admin'
+        ]);
+
+        // 5. Menu
+        DB::table('menu')->truncate();
+        $menus = [
+            ['nama_menu' => 'Home', 'link' => '/', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 1],
+            ['nama_menu' => 'Profil', 'link' => '/profil', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 2],
+            ['nama_menu' => 'Berita', 'link' => '/berita', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 3],
+            ['nama_menu' => 'Layanan', 'link' => '/layanan', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 4],
+            ['nama_menu' => 'Kontak', 'link' => '/kontak', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 5],
+        ];
+        DB::table('menu')->insert($menus);
+
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
     }
 }

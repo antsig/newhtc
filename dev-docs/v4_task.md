@@ -1,0 +1,20 @@
+- `[x]` **Migrasi Data (htcpajak)**
+  - Ekstrak data `halamanstatis` (profil, layanan, visi misi) dari file SQL lama.
+  - Masukkan data tersebut ke database baru.
+- `[x]` **Galeri Foto & Video**
+  - Buat model/migration untuk tabel `Video` (judul, youtube_url).
+  - Tambahkan fitur JSON array untuk foto di tabel `album` agar mendukung *multiple upload*.
+  - Buat `VideoResource` di Filament.
+- `[x]` **Media Berita & Editor**
+  - Pastikan fitur *RichEditor* Filament mendukung *image upload* (konfigurasi disk/folder).
+- `[x]` **Perombakan Menu Pengaturan (Identitas)**
+  - Hapus `IdentitasResource` lama (CRUD Table).
+  - Buat Custom Page `ManageIdentitas` di Filament khusus untuk form setting.
+- `[x]` **Pembuatan Halaman Publik (Detail)**
+  - Buat `PublicController`.
+  - Buat view detail berita (`berita/detail.blade.php`), hilangkan sidebar kiri.
+  - Buat view detail halaman statis (`halaman/detail.blade.php`).
+  - Buat view detail kategori (`berita/kategori.blade.php`).
+  - Buat view Galeri Foto & Video.
+- `[x]` **Keamanan**
+  - Filament secara otomatis meng-handle CSRF dan Sanitasi input (XSS).

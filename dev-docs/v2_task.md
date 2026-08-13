@@ -1,0 +1,8 @@
+- `[x]` Generate Eloquent models (`Berita`, `Kategori`, `Agenda`, `Album`, `Identitas`, `Banner`, `Menu`, `HalamanStatis`).
+- `[ ]` Install and configure Filament PHP.
+- `[ ]` Create Filament Resources for the database models.
+- `[ ]` Create `HomeController` to fetch dynamic data.
+- `[ ]` Update `routes/web.php` to point to `HomeController`.
+- `[ ]` Update `app.blade.php` to use dynamic data.
+- `[ ]` Update `welcome.blade.php` to use dynamic data.
+- `[ ]` Verify the admin panel and public site.
