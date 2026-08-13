@@ -136,6 +136,46 @@ class DatabaseSeeder extends Seeder
         ];
         DB::table('menu')->insert($menus);
 
+        // 6. Halaman Statis
+        DB::table('halamanstatis')->truncate();
+        DB::table('halamanstatis')->insert([
+            [
+                'judul' => 'Tentang HTC Training and Consulting',
+                'judul_seo' => 'tentang-htc--training-and-consulting',
+                'isi_halaman' => '<p>HTC Training & Consulting adalah lembaga pelatihan perpajakan...</p>',
+                'tgl_posting' => Carbon::now()->format('Y-m-d'),
+                'gambar' => '',
+                'username' => 'admin',
+                'dibaca' => 50,
+                'jam' => '10:00:00',
+                'hari' => 'Senin'
+            ],
+            [
+                'judul' => 'Layanan Konsultasi Pajak',
+                'judul_seo' => 'layanan-konsultasi-pajak',
+                'isi_halaman' => '<p>Kami melayani konsultasi pajak untuk perusahaan dan perorangan.</p>',
+                'tgl_posting' => Carbon::now()->format('Y-m-d'),
+                'gambar' => '',
+                'username' => 'admin',
+                'dibaca' => 40,
+                'jam' => '11:00:00',
+                'hari' => 'Selasa'
+            ]
+        ]);
+
+        // 7. Videos
+        DB::table('videos')->truncate();
+        DB::table('videos')->insert([
+            [
+                'judul' => 'Registrasi Akun DJP Online',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'keterangan' => 'Video tutorial registrasi DJP online',
+                'aktif' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]
+        ]);
+
         \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
     }
 }
