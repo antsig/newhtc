@@ -50,6 +50,24 @@ class PublicController extends Controller
         return view('kontak.index');
     }
 
+    public function agendaIndex()
+    {
+        // For now, return a placeholder view
+        return view('halaman.agenda');
+    }
+
+    public function galeriDownload()
+    {
+        // For now, return a placeholder view
+        return view('galeri.download');
+    }
+
+    public function pelatihanDetail($slug)
+    {
+        // Placeholder view since we don't have a Pelatihan module yet
+        return view('halaman.pelatihan', compact('slug'));
+    }
+
     public function beritaDetail($slug)
     {
         $berita = Berita::where('judul_seo', $slug)->firstOrFail();

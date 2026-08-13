@@ -3,23 +3,7 @@
 @section('title', $berita->judul)
 
 @section('right-sidebar')
-    <div class="sidebar-title mb-0">BERITA TERKAIT</div>
-    <div class="bg-white border p-3 mb-4">
-        <ul class="list-unstyled mb-0">
-            @forelse($beritaTerkait as $terkait)
-                <li class="mb-2 pb-2 border-bottom">
-                    <a href="{{ url('berita/'.$terkait->judul_seo) }}" class="text-decoration-none text-dark fw-bold">
-                        {{ $terkait->judul }}
-                    </a>
-                    <div class="text-muted" style="font-size:12px;">
-                        <i class="far fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($terkait->tanggal)->translatedFormat('d M Y') }}
-                    </div>
-                </li>
-            @empty
-                <li class="text-muted">Tidak ada berita terkait.</li>
-            @endforelse
-        </ul>
-    </div>
+    @include('partials.sidebar')
 @endsection
 
 @section('content')

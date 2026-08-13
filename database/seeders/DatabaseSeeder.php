@@ -127,13 +127,44 @@ class DatabaseSeeder extends Seeder
 
         // 5. Menu
         DB::table('menu')->truncate();
+        
+        // Insert parent menus and get IDs
+        $idProfil = DB::table('menu')->insertGetId(['id_parent' => 0, 'nama_menu' => 'Profil', 'link' => '#', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 2, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
+        $idPelatihan = DB::table('menu')->insertGetId(['id_parent' => 0, 'nama_menu' => 'Pelatihan', 'link' => '#', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 3, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
+        $idGaleri = DB::table('menu')->insertGetId(['id_parent' => 0, 'nama_menu' => 'Galeri', 'link' => '#', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 7, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
+
         $menus = [
-            ['nama_menu' => 'Home', 'link' => '/', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 1],
-            ['nama_menu' => 'Profil', 'link' => '/profil', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 2],
-            ['nama_menu' => 'Berita', 'link' => '/berita', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 3],
-            ['nama_menu' => 'Layanan', 'link' => '/layanan', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 4],
-            ['nama_menu' => 'Kontak', 'link' => '/kontak', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 5],
+            ['id_parent' => 0, 'nama_menu' => 'Home', 'link' => '/', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 1],
+            
+            // Submenu Profil
+            ['id_parent' => $idProfil, 'nama_menu' => 'Sejarah', 'link' => '/halaman/sejarah', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 1],
+            ['id_parent' => $idProfil, 'nama_menu' => 'Visi Misi', 'link' => '/halaman/visi-misi', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 2],
+            ['id_parent' => $idProfil, 'nama_menu' => 'Legalitas', 'link' => '/halaman/legalitas', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 3],
+            ['id_parent' => $idProfil, 'nama_menu' => 'Tim', 'link' => '/halaman/tim', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 4],
+            
+            // Submenu Pelatihan
+            ['id_parent' => $idPelatihan, 'nama_menu' => 'Perpajakan', 'link' => '/pelatihan/perpajakan', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 1],
+            ['id_parent' => $idPelatihan, 'nama_menu' => 'Akuntansi', 'link' => '/pelatihan/akuntansi', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 2],
+            ['id_parent' => $idPelatihan, 'nama_menu' => 'Manajemen', 'link' => '/pelatihan/manajemen', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 3],
+            
+            // Other Top Menus
+            ['id_parent' => 0, 'nama_menu' => 'Layanan', 'link' => '/layanan', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 4],
+            ['id_parent' => 0, 'nama_menu' => 'Berita', 'link' => '/berita', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 5],
+            ['id_parent' => 0, 'nama_menu' => 'Agenda', 'link' => '/agenda', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 6],
+            
+            // Submenu Galeri
+            ['id_parent' => $idGaleri, 'nama_menu' => 'Foto', 'link' => '/galeri/foto', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 1],
+            ['id_parent' => $idGaleri, 'nama_menu' => 'Video', 'link' => '/galeri/video', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 2],
+            ['id_parent' => $idGaleri, 'nama_menu' => 'Download', 'link' => '/galeri/download', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 3],
+            
+            ['id_parent' => 0, 'nama_menu' => 'Kontak', 'link' => '/kontak', 'aktif' => 'Ya', 'position' => 'Top', 'urutan' => 8],
         ];
+        
+        foreach($menus as &$menu) {
+            $menu['created_at'] = Carbon::now();
+            $menu['updated_at'] = Carbon::now();
+        }
+        
         DB::table('menu')->insert($menus);
 
         // 6. Halaman Statis

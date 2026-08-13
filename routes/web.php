@@ -11,6 +11,9 @@ Route::get('/berita', [PublicController::class, 'beritaIndex'])->name('berita.in
 Route::get('/profil', [PublicController::class, 'profilIndex'])->name('profil.index');
 Route::get('/layanan', [PublicController::class, 'layananIndex'])->name('layanan.index');
 Route::get('/kontak', [PublicController::class, 'kontakIndex'])->name('kontak.index');
+Route::get('/agenda', [PublicController::class, 'agendaIndex'])->name('agenda.index');
+Route::get('/galeri/download', [PublicController::class, 'galeriDownload'])->name('galeri.download');
+Route::get('/pelatihan/{slug}', [PublicController::class, 'pelatihanDetail'])->name('pelatihan.detail');
 
 Route::get('/berita/{slug}', [PublicController::class, 'beritaDetail'])->name('berita.detail');
 Route::get('/kategori/{slug}', [PublicController::class, 'kategoriDetail'])->name('kategori.detail');

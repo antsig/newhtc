@@ -27,7 +27,13 @@ class AppServiceProvider extends ServiceProvider
                 $identitas = \App\Models\Identitas::first();
             }
             if ($global_menus === null) {
-                $global_menus = \App\Models\Menu::where('aktif', 'Ya')->orderBy('urutan', 'asc')->get();
+                $global_menus = \App\Models\Menu::where('id_parent', 0)
+                    ->where('aktif', 'Ya')
+                    ->orderBy('urutan', 'asc')
+                    ->with(['children' => function($q) {
+                        $q->where('aktif', 'Ya')->orderBy('urutan', 'asc');
+                    }])
+                    ->get();
             }
 
             $view->with('identitas', $identitas);

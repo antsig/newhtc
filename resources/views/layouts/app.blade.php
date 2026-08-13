@@ -177,14 +177,26 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mb-2 mb-lg-0 w-100">
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="{{ url('/') }}"><i class="fas fa-home"></i></a>
-                    </li>
                     @if(isset($global_menus) && $global_menus->count() > 0)
                         @foreach($global_menus as $menu)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ str_starts_with($menu->link, 'http') ? $menu->link : url($menu->link) }}">{{ $menu->nama_menu }}</a>
-                            </li>
+                            @if($menu->children && $menu->children->count() > 0)
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ $menu->id_menu }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ $menu->nama_menu }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ $menu->id_menu }}">
+                                        @foreach($menu->children as $child)
+                                            <li><a class="dropdown-item" href="{{ str_starts_with($child->link, 'http') ? $child->link : url($child->link) }}">{{ $child->nama_menu }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ str_starts_with($menu->link, 'http') ? $menu->link : url($menu->link) }}">
+                                        @if(strtolower($menu->nama_menu) == 'home') <i class="fas fa-home"></i> @else {{ $menu->nama_menu }} @endif
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     @endif
                 </ul>

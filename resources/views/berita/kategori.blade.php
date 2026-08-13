@@ -7,7 +7,7 @@
 @endsection
 
 @section('right-sidebar')
-    @include('layouts.partials.right_sidebar_placeholder')
+    @include('partials.sidebar')
 @endsection
 
 @section('content')
