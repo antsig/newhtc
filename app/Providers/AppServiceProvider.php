@@ -20,8 +20,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $view->with('identitas', \App\Models\Identitas::first());
-            $view->with('global_menus', \App\Models\Menu::where('aktif', 'Ya')->orderBy('urutan', 'asc')->get());
+            static $identitas = null;
+            static $global_menus = null;
+
+            if ($identitas === null) {
+                $identitas = \App\Models\Identitas::first();
+            }
+            if ($global_menus === null) {
+                $global_menus = \App\Models\Menu::where('aktif', 'Ya')->orderBy('urutan', 'asc')->get();
+            }
+
+            $view->with('identitas', $identitas);
+            $view->with('global_menus', $global_menus);
         });
     }
 }

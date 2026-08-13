@@ -8,7 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Tabs;
+use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 
 class AlbumForm
