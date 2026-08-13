@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => '#074174', // HTC Blue
+                'primary' => Color::hex('#074174'), // HTC Blue
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
@@ -72,6 +72,50 @@ class AdminPanelProvider extends PanelProvider
                 <style>
                     body.fi-body { background: url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80") center center/cover no-repeat fixed !important; }
                     .fi-simple-main { background-color: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px;}
+                </style>
+            ')
+        );
+
+        // Inject custom CSS to make the admin panel look more premium (like AdminLTE with blue accent)
+        \Filament\Support\Facades\FilamentView::registerRenderHook(
+            \Filament\View\PanelsRenderHook::HEAD_END,
+            fn (): string => \Illuminate\Support\Facades\Blade::render('
+                <style>
+                    /* Custom Topbar */
+                    .fi-topbar {
+                        background-color: #074174 !important;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    }
+                    .fi-topbar .fi-topbar-item-label, 
+                    .fi-topbar button, 
+                    .fi-topbar a,
+                    .fi-topbar svg,
+                    .fi-topbar span {
+                        color: #ffffff !important;
+                    }
+                    /* Ensure dropdowns inside topbar are normal */
+                    .fi-dropdown-panel * {
+                        color: inherit !important;
+                    }
+                    .fi-dropdown-panel svg {
+                        color: #4b5563 !important;
+                    }
+                    
+                    /* Custom Sidebar enhancements */
+                    .fi-sidebar {
+                        background-color: #f8fafc !important;
+                        border-right: 1px solid #e2e8f0;
+                    }
+                    .fi-sidebar-item-active {
+                        background-color: #e0f2fe !important;
+                        border-right: 4px solid #074174;
+                        border-radius: 0 !important;
+                    }
+                    .fi-sidebar-item-active .fi-sidebar-item-label,
+                    .fi-sidebar-item-active svg {
+                        color: #074174 !important;
+                        font-weight: bold;
+                    }
                 </style>
             ')
         );
