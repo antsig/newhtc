@@ -19,4 +19,5 @@ Route::get('/berita/{slug}', [PublicController::class, 'beritaDetail'])->name('b
 Route::get('/kategori/{slug}', [PublicController::class, 'kategoriDetail'])->name('kategori.detail');
 Route::get('/halaman/{slug}', [PublicController::class, 'halamanDetail'])->name('halaman.detail');
 Route::get('/galeri/foto', [PublicController::class, 'galeriFoto'])->name('galeri.foto');
+Route::get('/galeri/foto/{slug}', [PublicController::class, 'galeriFotoDetail'])->name('galeri.foto.detail');
 Route::get('/galeri/video', [PublicController::class, 'galeriVideo'])->name('galeri.video');

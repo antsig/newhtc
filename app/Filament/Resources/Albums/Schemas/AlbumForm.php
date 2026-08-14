@@ -25,7 +25,7 @@ class AlbumForm
                                     ->label('Judul Album')
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (\Filament\Forms\Set $set, ?string $state) => $set('album_seo', \Illuminate\Support\Str::slug($state))),
+                                    ->afterStateUpdated(fn ($set, ?string $state) => $set('album_seo', \Illuminate\Support\Str::slug($state))),
                                 TextInput::make('album_seo')
                                     ->label('SEO URL')
                                     ->required()

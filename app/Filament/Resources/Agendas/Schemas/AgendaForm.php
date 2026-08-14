@@ -22,7 +22,7 @@ class AgendaForm
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('tema_seo', Str::slug($state))),
+                    ->afterStateUpdated(fn ($set, ?string $state) => $set('tema_seo', Str::slug($state))),
                 TextInput::make('tema_seo')
                     ->required()
                     ->maxLength(255)

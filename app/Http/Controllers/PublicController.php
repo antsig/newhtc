@@ -108,6 +108,12 @@ class PublicController extends Controller
         return view('galeri.foto', compact('albums'));
     }
 
+    public function galeriFotoDetail($slug)
+    {
+        $album = Album::where('album_seo', $slug)->firstOrFail();
+        return view('galeri.album_detail', compact('album'));
+    }
+
     public function galeriVideo()
     {
         $videos = Video::where('aktif', true)->orderBy('id', 'DESC')->paginate(12);

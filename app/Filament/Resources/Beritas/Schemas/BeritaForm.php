@@ -26,7 +26,7 @@ class BeritaForm
                                     ->required()
                                     ->columnSpanFull()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (\Filament\Forms\Set $set, ?string $state) => $set('judul_seo', \Illuminate\Support\Str::slug($state))),
+                                    ->afterStateUpdated(fn ($set, ?string $state) => $set('judul_seo', \Illuminate\Support\Str::slug($state))),
                                 TextInput::make('sub_judul')
                                     ->columnSpanFull(),
                                 TextInput::make('judul_seo')

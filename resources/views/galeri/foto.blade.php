@@ -10,49 +10,43 @@
 <div class="bg-white border p-4 mb-4">
     <h1 class="fw-bold mb-4" style="color:#074174; border-bottom:2px solid #eee; padding-bottom:10px;">Galeri Foto</h1>
     
+    <style>
+        .album-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .album-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+        .album-img-wrapper {
+            overflow: hidden;
+        }
+        .album-img-wrapper img {
+            transition: transform 0.5s ease;
+        }
+        .album-card:hover .album-img-wrapper img {
+            transform: scale(1.1);
+        }
+    </style>
+    
     <div class="row g-4">
         @forelse($albums as $album)
         <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                @if($album->gbr_album)
-                <img src="{{ Storage::url($album->gbr_album) }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="{{ $album->jdl_album }}">
-                @else
-                <img src="https://via.placeholder.com/300x200.png/eee/999?text=No+Cover" class="card-img-top object-fit-cover" style="height: 200px;" alt="No Cover">
-                @endif
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold" style="font-size:16px;">{{ $album->jdl_album }}</h5>
-                    <!-- Button trigger modal for Multiple Photos -->
-                    <button type="button" class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#albumModal{{ $album->id_album }}">
-                        Lihat Foto
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="albumModal{{ $album->id_album }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ $album->jdl_album }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{ $album->keterangan }}</p>
-                        @if(!empty($album->photos) && is_array($album->photos))
-                            <div class="row g-2">
-                                @foreach($album->photos as $photo)
-                                    <div class="col-md-4">
-                                        <img src="{{ Storage::url($photo) }}" class="img-fluid rounded" alt="Photo">
-                                    </div>
-                                @endforeach
-                            </div>
+            <a href="{{ route('galeri.foto.detail', $album->album_seo) }}" class="text-decoration-none text-dark">
+                <div class="card h-100 shadow-sm border-0 album-card">
+                    <div class="album-img-wrapper">
+                        @if($album->gbr_album)
+                        <img src="{{ asset('storage/' . $album->gbr_album) }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="{{ $album->jdl_album }}">
                         @else
-                            <div class="alert alert-info">Tidak ada foto lain dalam album ini.</div>
+                        <img src="https://via.placeholder.com/300x200.png/eee/999?text=No+Cover" class="card-img-top object-fit-cover" style="height: 200px;" alt="No Cover">
                         @endif
                     </div>
+                    <div class="card-body text-center bg-light">
+                        <h5 class="card-title fw-bold mb-1" style="font-size:16px; color:#074174;">{{ $album->jdl_album }}</h5>
+                        <small class="text-muted"><i class="fas fa-images"></i> Klik untuk melihat foto</small>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         @empty
         <div class="col-12 text-center">
