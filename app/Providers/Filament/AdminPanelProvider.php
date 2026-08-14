@@ -23,6 +23,13 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $identitas = null;
+        try {
+            $identitas = \App\Models\Identitas::first();
+        } catch (\Throwable $e) {
+            // ignore
+        }
+
         return $panel
             ->default()
             ->id('admin')
@@ -37,7 +44,10 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('Poppins')
-            ->brandName('HTC Pajak Administrator')
+            ->brandName($identitas?->nama_website ?? 'HTC Pajak Administrator')
+            ->brandLogo($identitas?->logo ? asset('storage/' . $identitas->logo) : null)
+            ->favicon($identitas?->favicon ? asset('storage/' . $identitas->favicon) : null)
+            ->profile()
             ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

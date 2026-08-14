@@ -165,10 +165,10 @@
             <div class="row align-items-center">
                 <div class="col-md-4">
                     <div class="d-flex align-items-center">
-                        @if(isset($identitas) && $identitas->favicon)
-                            <img src="{{ Storage::url($identitas->favicon) }}" alt="Logo" class="me-2" style="max-height: 40px;">
+                        @if(isset($identitas) && $identitas->logo)
+                            <img src="{{ Storage::url($identitas->logo) }}" alt="Logo" class="me-2" style="max-height: 40px;">
                         @else
-                            <img src="https://via.placeholder.com/30x30.png/074174/ffffff?text=H" alt="Logo" class="me-2" style="border:1px solid white;">
+                            <img src="{{ asset('images/no-image.png') }}" alt="Logo" class="me-2" style="max-height: 40px; border-radius:4px;">
                         @endif
                         <span class="fw-bold fs-5">{{ $identitas->nama_website ?? 'HTC Training & Consulting' }}</span>
                     </div>

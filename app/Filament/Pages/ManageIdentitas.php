@@ -48,8 +48,13 @@ class ManageIdentitas extends Page implements HasForms
                                 TextInput::make('url')
                                     ->url()
                                     ->required(),
+                                FileUpload::make('logo')
+                                    ->image()
+                                    ->imageEditor()
+                                    ->directory('identitas'),
                                 FileUpload::make('favicon')
                                     ->image()
+                                    ->imageEditor()
                                     ->directory('identitas'),
                             ]),
                         Tabs\Tab::make('Kontak & Sosial Media')
@@ -60,9 +65,15 @@ class ManageIdentitas extends Page implements HasForms
                                     ->required(),
                                 TextInput::make('no_telp')
                                     ->tel(),
-                                TextInput::make('facebook')
-                                    ->url(),
                                 TextInput::make('rekening'),
+                                Filament\Forms\Components\Repeater::make('sosmed')
+                                    ->label('Media Sosial')
+                                    ->schema([
+                                        TextInput::make('name')->label('Nama (misal: Facebook, Instagram)')->required(),
+                                        TextInput::make('url')->url()->required(),
+                                    ])
+                                    ->columns(2)
+                                    ->columnSpanFull(),
                                 Textarea::make('maps')
                                     ->columnSpanFull(),
                             ])->columns(2),

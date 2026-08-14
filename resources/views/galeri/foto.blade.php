@@ -38,11 +38,12 @@
                         @if($album->gbr_album)
                         <img src="{{ asset('storage/' . $album->gbr_album) }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="{{ $album->jdl_album }}">
                         @else
-                        <img src="https://via.placeholder.com/300x200.png/eee/999?text=No+Cover" class="card-img-top object-fit-cover" style="height: 200px;" alt="No Cover">
+                        <img src="{{ asset('images/no-image.png') }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="No Cover">
                         @endif
                     </div>
                     <div class="card-body text-center bg-light">
                         <h5 class="card-title fw-bold mb-1" style="font-size:16px; color:#074174;">{{ $album->jdl_album }}</h5>
+                        <small class="text-muted"><i class="fas fa-eye"></i> {{ $album->hits_album }} views</small><br>
                         <small class="text-muted"><i class="fas fa-images"></i> Klik untuk melihat foto</small>
                     </div>
                 </div>

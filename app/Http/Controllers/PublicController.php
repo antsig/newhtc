@@ -111,6 +111,7 @@ class PublicController extends Controller
     public function galeriFotoDetail($slug)
     {
         $album = Album::where('album_seo', $slug)->firstOrFail();
+        $album->increment('hits_album');
         return view('galeri.album_detail', compact('album'));
     }
 

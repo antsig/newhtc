@@ -73,7 +73,7 @@
         <div class="row g-3">
             @foreach($album->photos as $photo)
             <div class="col-md-4 col-sm-6">
-                <a href="{{ asset('storage/' . $photo) }}" class="glightbox" data-gallery="album-{{ $album->id_album }}" data-title="{{ $album->jdl_album }}">
+                <a href="{{ asset('storage/' . $photo) }}" class="glightbox" data-gallery="album-{{ $album->id_album }}">
                     <div class="photo-card">
                         <img src="{{ asset('storage/' . $photo) }}" alt="Photo {{ $loop->iteration }}">
                         <div class="photo-overlay">

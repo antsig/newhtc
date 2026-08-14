@@ -14,35 +14,20 @@ class AlbumsTable
     {
         return $table
             ->columns([
+                Filament\Tables\Columns\ImageColumn::make('gbr_album')
+                    ->label('Sampul')
+                    ->square(),
                 TextColumn::make('jdl_album')
-                    ->searchable(),
-                TextColumn::make('album_seo')
-                    ->searchable(),
-                TextColumn::make('gbr_album')
-                    ->searchable(),
+                    ->label('Judul Album')
+                    ->searchable()
+                    ->description(fn (App\Models\Album $record): string => $record->album_seo ?? ''),
                 TextColumn::make('aktif')
                     ->badge(),
-                TextColumn::make('hits_album')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('tgl_posting')
+                    ->label('Tgl Posting & Hits')
                     ->date()
-                    ->sortable(),
-                TextColumn::make('jam')
-                    ->time()
-                    ->sortable(),
-                TextColumn::make('hari')
-                    ->searchable(),
-                TextColumn::make('username')
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->description(fn (App\Models\Album $record): string => $record->hits_album . ' views'),
             ])
             ->filters([
                 //

@@ -14,13 +14,14 @@ class BannersTable
     {
         return $table
             ->columns([
+                Filament\Tables\Columns\ImageColumn::make('gambar')
+                    ->label('Banner')
+                    ->square(),
                 TextColumn::make('judul')
-                    ->searchable(),
-                TextColumn::make('url')
-                    ->searchable(),
-                TextColumn::make('gambar')
-                    ->searchable(),
+                    ->searchable()
+                    ->description(fn (App\Models\Banner $record): string => $record->url ?? ''),
                 TextColumn::make('tgl_posting')
+                    ->label('Tgl Posting')
                     ->date()
                     ->sortable(),
                 TextColumn::make('created_at')

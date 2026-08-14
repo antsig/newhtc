@@ -18,7 +18,7 @@
             @if($sb->gambar)
             <img src="{{ Storage::url($sb->gambar) }}" class="me-3 rounded object-fit-cover" style="width: 70px; height: 70px;" alt="{{ $sb->judul }}">
             @else
-            <img src="https://via.placeholder.com/70" class="me-3 rounded" style="width: 70px; height: 70px;" alt="No Image">
+            <img src="{{ asset('images/no-image.png') }}" class="me-3 rounded" style="width: 70px; height: 70px;" alt="No Image">
             @endif
             <div>
                 <a href="{{ url('berita/'.$sb->judul_seo) }}" class="text-decoration-none text-dark fw-bold" style="font-size: 14px; line-height: 1.4; display: block; margin-bottom: 5px;">{{ Str::limit($sb->judul, 45) }}</a>

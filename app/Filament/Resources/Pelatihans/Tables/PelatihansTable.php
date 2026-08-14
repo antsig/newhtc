@@ -16,9 +16,14 @@ class PelatihansTable
     {
         return $table
             ->columns([
-                ImageColumn::make('gambar'),
+                ImageColumn::make('gambar')
+                    ->label('Thumbnail')
+                    ->square(),
+                TextColumn::make('judul')
+                    ->searchable()
+                    ->sortable()
+                    ->description(fn (App\Models\Pelatihan $record): string => $record->slug ?? ''),
                 TextColumn::make('kategori')->sortable()->searchable(),
-                TextColumn::make('judul')->sortable()->searchable(),
                 TextColumn::make('jadwal')->date()->sortable(),
             ])
             ->filters([

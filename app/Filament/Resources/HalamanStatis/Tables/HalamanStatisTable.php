@@ -14,25 +14,15 @@ class HalamanStatisTable
     {
         return $table
             ->columns([
+                Filament\Tables\Columns\ImageColumn::make('gambar')
+                    ->label('Thumbnail')
+                    ->square(),
                 TextColumn::make('judul')
-                    ->searchable(),
-                TextColumn::make('judul_seo')
-                    ->searchable(),
-                TextColumn::make('tgl_posting')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('gambar')
-                    ->searchable(),
-                TextColumn::make('username')
-                    ->searchable(),
+                    ->searchable()
+                    ->description(fn (App\Models\HalamanStatis $record): string => $record->judul_seo ?? ''),
                 TextColumn::make('dibaca')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('jam')
-                    ->time()
-                    ->sortable(),
-                TextColumn::make('hari')
-                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

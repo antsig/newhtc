@@ -14,17 +14,18 @@ class KategorisTable
     {
         return $table
             ->columns([
+                Filament\Tables\Columns\ImageColumn::make('gambar_utama')
+                    ->label('Gambar')
+                    ->square(),
                 TextColumn::make('nama_kategori')
-                    ->searchable(),
-                TextColumn::make('kategori_seo')
-                    ->searchable(),
+                    ->searchable()
+                    ->description(fn (App\Models\Kategori $record): string => $record->kategori_seo ?? ''),
                 TextColumn::make('username')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('aktif')
                     ->badge(),
                 TextColumn::make('sidebar')
-                    ->searchable(),
-                TextColumn::make('gambar_utama')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

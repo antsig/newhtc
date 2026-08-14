@@ -17,7 +17,7 @@
                 @if($layanan->gambar)
                 <img src="{{ Storage::url($layanan->gambar) }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="{{ $layanan->judul }}">
                 @else
-                <img src="https://via.placeholder.com/400x250.png/074174/fff?text=Layanan" class="card-img-top object-fit-cover" style="height: 200px;" alt="Layanan">
+                <img src="{{ asset('images/no-image.png') }}" class="card-img-top object-fit-cover" style="height: 200px;" alt="Layanan">
                 @endif
                 <div class="card-body">
                     <h5 class="card-title fw-bold" style="color:#074174;">{{ $layanan->judul }}</h5>

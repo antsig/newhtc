@@ -17,7 +17,7 @@
                 @if($item->gambar)
                 <img src="{{ Storage::url($item->gambar) }}" class="img-fluid rounded" alt="{{ $item->judul }}">
                 @else
-                <img src="https://via.placeholder.com/300x200.png/eee/999?text=No+Image" class="img-fluid rounded" alt="No Image">
+                <img src="{{ asset('images/no-image.png') }}" class="img-fluid rounded" alt="No Image">
                 @endif
             </div>
             <div class="col-md-8">

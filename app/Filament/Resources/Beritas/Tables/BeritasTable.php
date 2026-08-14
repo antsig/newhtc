@@ -15,34 +15,29 @@ class BeritasTable
         return $table
             ->columns([
                 TextColumn::make('id_kategori')
+                    ->label('Kategori')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('username')
-                    ->searchable(),
+                Filament\Tables\Columns\ImageColumn::make('gambar')
+                    ->label('Gambar / Thumbnail')
+                    ->square(),
                 TextColumn::make('judul')
-                    ->searchable(),
-                TextColumn::make('sub_judul')
-                    ->searchable(),
+                    ->label('Judul Berita')
+                    ->searchable()
+                    ->description(fn (App\Models\Berita $record): string => $record->judul_seo ?? ''),
                 TextColumn::make('youtube')
-                    ->searchable(),
-                TextColumn::make('judul_seo')
-                    ->searchable(),
+                    ->label('ID Youtube')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('headline')
                     ->badge(),
                 TextColumn::make('aktif')
                     ->badge(),
                 TextColumn::make('utama')
                     ->badge(),
-                TextColumn::make('hari')
-                    ->searchable(),
                 TextColumn::make('tanggal')
                     ->date()
                     ->sortable(),
-                TextColumn::make('jam')
-                    ->time()
-                    ->sortable(),
-                TextColumn::make('gambar')
-                    ->searchable(),
                 TextColumn::make('dibaca')
                     ->numeric()
                     ->sortable(),

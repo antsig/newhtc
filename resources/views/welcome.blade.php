@@ -5,7 +5,7 @@
 @section('left-sidebar')
     <!-- Akreditasi Image -->
     <div class="mb-3 bg-white" style="border: 4px solid #fcf2e3; padding:2px;">
-        <img src="https://via.placeholder.com/300x400.png/fff0e0/b38247?text=SERTIFIKAT+AKREDITASI" class="img-fluid w-100 object-fit-cover" alt="Sertifikat Akreditasi" style="height:250px;">
+        <img src="{{ asset('images/no-image.png') }}" class="img-fluid w-100 object-fit-cover" alt="Sertifikat Akreditasi" style="height:250px;">
     </div>
 
     <!-- Banner Butuh Staff -->
@@ -28,7 +28,7 @@
     <div class="sidebar-title mb-0">FOTO TERBARU</div>
     <div class="bg-white border p-0 mb-4 position-relative">
         @if($albumTerbaru)
-            <img src="{{ $albumTerbaru->gbr_album ? Storage::url($albumTerbaru->gbr_album) : 'https://via.placeholder.com/250x200.png' }}" class="img-fluid w-100 object-fit-cover" style="height:200px;" alt="{{ $albumTerbaru->jdl_album }}">
+            <img src="{{ $albumTerbaru->gbr_album ? Storage::url($albumTerbaru->gbr_album) : asset('images/no-image.png') }}" class="img-fluid w-100 object-fit-cover" style="height:200px;" alt="{{ $albumTerbaru->jdl_album }}">
             <div class="position-absolute text-white text-center w-100" style="bottom:10px; font-size:12px; background:rgba(0,0,0,0.6); padding:5px;">
                 {{ $albumTerbaru->jdl_album }}
             </div>
@@ -75,7 +75,7 @@
                 @foreach($carouselNews as $index => $news)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <a href="{{ url('berita/'.$news->judul_seo) }}" class="text-decoration-none">
-                        <img src="{{ $news->gambar ? Storage::url($news->gambar) : 'https://via.placeholder.com/800x400.png?text='.urlencode($news->judul) }}" class="d-block w-100 object-fit-cover" alt="{{ $news->judul }}" style="height:350px;">
+                        <img src="{{ $news->gambar ? Storage::url($news->gambar) : asset('images/no-image.png') }}" class="d-block w-100 object-fit-cover" alt="{{ $news->judul }}" style="height:350px;">
                         <div class="carousel-caption d-none d-md-block text-start" style="right:0; left:0; bottom:0; padding:15px; background: rgba(0,0,0,0.6);">
                             <h5 class="mb-0 text-white fw-bold" style="font-size:16px;">{{ $news->judul }}</h5>
                         </div>
@@ -106,7 +106,7 @@
         @foreach($beritaTerbaru as $news)
         <div class="row align-items-start py-3 border-bottom">
             <div class="col-4 pe-0">
-                <img src="{{ $news->gambar ? asset('storage/'.$news->gambar) : 'https://via.placeholder.com/150x100.png' }}" class="img-fluid w-100 object-fit-cover" alt="News Image" style="height:100px;">
+                <img src="{{ $news->gambar ? asset('storage/'.$news->gambar) : asset('images/no-image.png') }}" class="img-fluid w-100 object-fit-cover" alt="News Image" style="height:100px;">
             </div>
             <div class="col-8">
                 <h6 class="fw-bold mb-1" style="font-size: 14px; line-height: 1.3;">
@@ -160,7 +160,7 @@
     <div class="bg-white border p-3">
         @forelse($breakingNews as $news)
         <div class="d-flex mb-3 align-items-start {{ !$loop->last ? 'border-bottom pb-2' : '' }}">
-            <img src="{{ $news->gambar ? Storage::url($news->gambar) : 'https://via.placeholder.com/60.png/074174/ffffff' }}" class="me-2 flex-shrink-0" style="width:60px; height:60px; object-fit:cover;" alt="Berita Utama">
+            <img src="{{ $news->gambar ? Storage::url($news->gambar) : asset('images/no-image.png') }}" class="me-2 flex-shrink-0" style="width:60px; height:60px; object-fit:cover;" alt="Berita Utama">
             <div>
                 <a href="{{ url('berita/'.$news->judul_seo) }}" class="text-dark fw-bold text-decoration-none d-block mb-1" style="font-size:12px; line-height:1.2;">{{ $news->judul }}</a>
                 <div class="text-muted" style="font-size:10px;"><i class="far fa-clock text-danger"></i> {{ $news->jam }}, {{ \Carbon\Carbon::parse($news->tanggal)->format('d M Y') }}</div>
@@ -176,7 +176,7 @@
     <div class="bg-white border p-3">
         @foreach($beritaPopuler as $news)
         <div class="d-flex mb-3 align-items-start border-bottom pb-2">
-            <img src="{{ $news->gambar ? Storage::url($news->gambar) : 'https://via.placeholder.com/60x40.png' }}" class="me-2 flex-shrink-0" style="width:60px; height:40px; object-fit:cover;" alt="Berita Populer">
+            <img src="{{ $news->gambar ? Storage::url($news->gambar) : asset('images/no-image.png') }}" class="me-2 flex-shrink-0" style="width:60px; height:40px; object-fit:cover;" alt="Berita Populer">
             <div>
                 <a href="{{ url('berita/'.$news->judul_seo) }}" class="text-dark text-decoration-none d-block mb-1" style="font-size:12px; line-height:1.2;">{{ $news->judul }}</a>
                 <div class="text-muted" style="font-size:10px;"><i class="far fa-clock text-primary"></i> {{ $news->jam }}, {{ \Carbon\Carbon::parse($news->tanggal)->format('d M Y') }}</div>
