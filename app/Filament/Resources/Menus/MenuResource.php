@@ -19,6 +19,7 @@ class MenuResource extends Resource
     protected static ?string $model = Menu::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?int $navigationSort = 9;
 
     public static function form(Schema $schema): Schema
     {
@@ -46,3 +47,4 @@ class MenuResource extends Resource
         ];
     }
 }
+

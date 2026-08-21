@@ -14,12 +14,12 @@ class KategorisTable
     {
         return $table
             ->columns([
-                Filament\Tables\Columns\ImageColumn::make('gambar_utama')
+                \Filament\Tables\Columns\ImageColumn::make('gambar_utama')->disk('public')
                     ->label('Gambar')
                     ->square(),
                 TextColumn::make('nama_kategori')
                     ->searchable()
-                    ->description(fn (App\Models\Kategori $record): string => $record->kategori_seo ?? ''),
+                    ->description(fn (\App\Models\Kategori $record): string => $record->kategori_seo ?? ''),
                 TextColumn::make('username')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -46,6 +46,7 @@ class KategorisTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

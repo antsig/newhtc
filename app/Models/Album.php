@@ -4,8 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\ConvertsImagesToWebp;
+
 class Album extends Model
 {
+    use ConvertsImagesToWebp;
+
+    public $imageFields = ['gbr_album'];
+
     protected $fillable = [
         'jdl_album',
         'album_seo',

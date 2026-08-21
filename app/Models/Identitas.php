@@ -4,8 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\ConvertsImagesToWebp;
+
 class Identitas extends Model
 {
+    use ConvertsImagesToWebp;
+    public $imageFields = ['favicon', 'logo'];
+
     protected $table = 'identitas';
     protected $primaryKey = 'id_identitas';
     protected $fillable = [
@@ -21,6 +26,10 @@ class Identitas extends Model
         'favicon',
         'logo',
         'maps',
+        'sejarah',
+        'visi_misi',
+        'legalitas',
+        'tim',
     ];
 
     protected $casts = [

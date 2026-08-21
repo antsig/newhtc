@@ -16,13 +16,13 @@ class PelatihansTable
     {
         return $table
             ->columns([
-                ImageColumn::make('gambar')
+                ImageColumn::make('gambar')->disk('public')
                     ->label('Thumbnail')
                     ->square(),
                 TextColumn::make('judul')
                     ->searchable()
                     ->sortable()
-                    ->description(fn (App\Models\Pelatihan $record): string => $record->slug ?? ''),
+                    ->description(fn (\App\Models\Pelatihan $record): string => $record->slug ?? ''),
                 TextColumn::make('kategori')->sortable()->searchable(),
                 TextColumn::make('jadwal')->date()->sortable(),
             ])
@@ -36,6 +36,7 @@ class PelatihansTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id_pelatihan', 'desc');
     }
 }

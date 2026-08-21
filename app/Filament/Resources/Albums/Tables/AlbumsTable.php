@@ -14,20 +14,20 @@ class AlbumsTable
     {
         return $table
             ->columns([
-                Filament\Tables\Columns\ImageColumn::make('gbr_album')
+                \Filament\Tables\Columns\ImageColumn::make('gbr_album')->disk('public')
                     ->label('Sampul')
                     ->square(),
                 TextColumn::make('jdl_album')
                     ->label('Judul Album')
                     ->searchable()
-                    ->description(fn (App\Models\Album $record): string => $record->album_seo ?? ''),
+                    ->description(fn (\App\Models\Album $record): string => $record->album_seo ?? ''),
                 TextColumn::make('aktif')
                     ->badge(),
                 TextColumn::make('tgl_posting')
                     ->label('Tgl Posting & Hits')
                     ->date()
                     ->sortable()
-                    ->description(fn (App\Models\Album $record): string => $record->hits_album . ' views'),
+                    ->description(fn (\App\Models\Album $record): string => $record->hits_album . ' views'),
             ])
             ->filters([
                 //
@@ -39,6 +39,7 @@ class AlbumsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAlbum extends CreateRecord
 {
     protected static string $resource = AlbumResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

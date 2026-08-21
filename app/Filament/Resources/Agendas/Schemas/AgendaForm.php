@@ -30,16 +30,15 @@ class AgendaForm
                 TextInput::make('tempat')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('pengirim')
-                    ->required()
-                    ->maxLength(255),
+                Hidden::make('pengirim')
+                    ->default(fn () => auth()->user()?->name ?? 'admin'),
                 DatePicker::make('tgl_mulai')->required(),
                 DatePicker::make('tgl_selesai')->required(),
                 TimePicker::make('jam')->required(),
-                FileUpload::make('gambar')
+                FileUpload::make('gambar')->disk('public')->directory('agenda')
                     ->image()
                     ->directory('agenda'),
-                RichEditor::make('isi_agenda')
+                RichEditor::make('isi_agenda')->fileAttachmentsDisk('public')->fileAttachmentsDirectory('agenda_attachments')
                     ->required()
                     ->columnSpanFull(),
                 Hidden::make('tgl_posting')->default(date('Y-m-d')),

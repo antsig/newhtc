@@ -13,6 +13,7 @@ Route::get('/layanan', [PublicController::class, 'layananIndex'])->name('layanan
 Route::get('/kontak', [PublicController::class, 'kontakIndex'])->name('kontak.index');
 Route::get('/agenda', [PublicController::class, 'agendaIndex'])->name('agenda.index');
 Route::get('/galeri/download', [PublicController::class, 'galeriDownload'])->name('galeri.download');
+Route::get('/galeri/download/{id}', [App\Http\Controllers\DownloadController::class, 'hitAndDownload'])->name('download.file');
 Route::get('/pelatihan/{slug}', [PublicController::class, 'pelatihanDetail'])->name('pelatihan.detail');
 
 Route::get('/berita/{slug}', [PublicController::class, 'beritaDetail'])->name('berita.detail');

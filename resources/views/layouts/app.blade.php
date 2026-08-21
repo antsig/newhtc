@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTC Pajak - @yield('title', 'Pusat Pelatihan Pajak')</title>
     <!-- Bootstrap CSS for layout -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></noscript>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <style>
         body {
             background-color: #f1f3f5;
@@ -157,7 +159,7 @@
         }
     </style>
 </head>
-<body>
+<body hx-boost="true">
 
     <!-- Header Section (Top Bar) -->
     <div class="top-header">
@@ -251,6 +253,16 @@
             @hasSection('left-sidebar')
             <div class="col-md-3 order-2 order-md-1">
                 @yield('left-sidebar')
+                
+                @if(isset($global_banners_kiri) && $global_banners_kiri->count() > 0)
+                    <div class="mt-4">
+                        @foreach($global_banners_kiri as $banner)
+                            <a href="{{ $banner->url }}" target="_blank" class="d-block mb-3">
+                                <img src="{{ Storage::url($banner->gambar) }}" class="img-fluid rounded shadow-sm" alt="{{ $banner->judul }}">
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             @endif
 
@@ -268,6 +280,16 @@
             @hasSection('right-sidebar')
             <div class="col-md-3 order-3 order-md-3">
                 @yield('right-sidebar')
+                
+                @if(isset($global_banners_kanan) && $global_banners_kanan->count() > 0)
+                    <div class="mt-4">
+                        @foreach($global_banners_kanan as $banner)
+                            <a href="{{ $banner->url }}" target="_blank" class="d-block mb-3">
+                                <img src="{{ Storage::url($banner->gambar) }}" class="img-fluid rounded shadow-sm" alt="{{ $banner->judul }}">
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             @endif
         </div>
@@ -285,7 +307,47 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Welcome Popup Modal -->
+    @if(isset($welcome_popup) && $welcome_popup)
+    <div class="modal fade" id="welcomePopupModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 bg-transparent">
+                <div class="modal-header border-0 pb-0 position-absolute w-100" style="z-index: 10;">
+                    <button type="button" class="btn-close bg-white shadow-sm" data-bs-dismiss="modal" aria-label="Close" style="opacity: 1; border-radius: 50%; padding: 10px; right: -10px; top: -10px; position: absolute;"></button>
+                </div>
+                <div class="modal-body p-0 text-center position-relative">
+                    @if(isset($welcome_popup->url) && $welcome_popup->url != '#')
+                        <a href="{{ $welcome_popup->url }}" target="_blank">
+                            <img src="{{ Storage::url($welcome_popup->gambar) }}" class="img-fluid rounded shadow" alt="{{ $welcome_popup->judul }}">
+                        </a>
+                    @else
+                        <img src="{{ Storage::url($welcome_popup->gambar) }}" class="img-fluid rounded shadow" alt="{{ $welcome_popup->judul }}">
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <!-- HTMX for SPA transitions -->
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous" defer></script>
+    
+    <!-- Instant.page for preloading links on hover -->
+    <script src="//instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQG+GW0sEKV6t128DN" defer></script>
+    
+    @if(isset($welcome_popup) && $welcome_popup)
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!sessionStorage.getItem('welcomePopupShown')) {
+                var myModal = new bootstrap.Modal(document.getElementById('welcomePopupModal'));
+                myModal.show();
+                sessionStorage.setItem('welcomePopupShown', 'true');
+            }
+        });
+    </script>
+    @endif
 </body>
 </html>

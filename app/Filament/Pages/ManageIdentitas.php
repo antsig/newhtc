@@ -17,10 +17,25 @@ class ManageIdentitas extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static string|\UnitEnum|null $navigationGroup = 'Pengaturan Web';
-    protected static ?string $title = 'Pengaturan Identitas Web';
-    protected static ?string $navigationLabel = 'Identitas Website';
+    public static function getNavigationIcon(): string|\BackedEnum|null
+    {
+        return 'heroicon-o-cog-6-tooth';
+    }
+    
+    public static function getNavigationSort(): ?int
+    {
+        return 2;
+    }
+    
+    public function getTitle(): string | \Illuminate\Contracts\Support\Htmlable
+    {
+        return 'Pengaturan Identitas Web';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Identitas Website';
+    }
     protected string $view = 'filament.pages.manage-identitas';
 
     public ?array $data = [];
@@ -41,7 +56,35 @@ class ManageIdentitas extends Page implements HasForms
             ->schema([
                 Tabs::make('Tabs')
                     ->tabs([
-                        Tabs\Tab::make('Informasi Umum')
+                        Tabs\Tab::make('Sejarah')
+                            ->schema([
+                                \Filament\Forms\Components\RichEditor::make('sejarah')
+                                    ->label('Sejarah Lembaga')
+                                    ->fileAttachmentsDirectory('profil')
+                                    ->columnSpanFull(),
+                            ]),
+                        Tabs\Tab::make('Visi & Misi')
+                            ->schema([
+                                \Filament\Forms\Components\RichEditor::make('visi_misi')
+                                    ->label('Visi & Misi Lembaga')
+                                    ->fileAttachmentsDirectory('profil')
+                                    ->columnSpanFull(),
+                            ]),
+                        Tabs\Tab::make('Legalitas')
+                            ->schema([
+                                \Filament\Forms\Components\RichEditor::make('legalitas')
+                                    ->label('Legalitas Lembaga')
+                                    ->fileAttachmentsDirectory('profil')
+                                    ->columnSpanFull(),
+                            ]),
+                        Tabs\Tab::make('Tim / Struktur')
+                            ->schema([
+                                \Filament\Forms\Components\RichEditor::make('tim')
+                                    ->label('Tim atau Struktur Organisasi')
+                                    ->fileAttachmentsDirectory('profil')
+                                    ->columnSpanFull(),
+                            ]),
+                        Tabs\Tab::make('Identitas Web')
                             ->schema([
                                 TextInput::make('nama_website')
                                     ->required(),
@@ -56,32 +99,11 @@ class ManageIdentitas extends Page implements HasForms
                                     ->image()
                                     ->imageEditor()
                                     ->directory('identitas'),
-                            ]),
-                        Tabs\Tab::make('Kontak & Sosial Media')
-                            ->schema([
-                                TextInput::make('email')
-                                    ->label('Email address')
-                                    ->email()
-                                    ->required(),
-                                TextInput::make('no_telp')
-                                    ->tel(),
-                                TextInput::make('rekening'),
-                                Filament\Forms\Components\Repeater::make('sosmed')
-                                    ->label('Media Sosial')
-                                    ->schema([
-                                        TextInput::make('name')->label('Nama (misal: Facebook, Instagram)')->required(),
-                                        TextInput::make('url')->url()->required(),
-                                    ])
-                                    ->columns(2)
-                                    ->columnSpanFull(),
-                                Textarea::make('maps')
-                                    ->columnSpanFull(),
-                            ])->columns(2),
-                        Tabs\Tab::make('SEO & Meta')
-                            ->schema([
                                 Textarea::make('meta_deskripsi')
+                                    ->rows(15)
                                     ->columnSpanFull(),
                                 Textarea::make('meta_keyword')
+                                    ->rows(15)
                                     ->columnSpanFull(),
                             ]),
                     ])->columnSpanFull()
@@ -101,3 +123,4 @@ class ManageIdentitas extends Page implements HasForms
             ->send();
     }
 }
+

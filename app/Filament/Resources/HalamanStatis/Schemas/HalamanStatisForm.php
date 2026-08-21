@@ -27,33 +27,27 @@ class HalamanStatisForm
                                 TextInput::make('judul_seo')
                                     ->required()
                                     ->readOnly(),
-                                RichEditor::make('isi_halaman')
+                                RichEditor::make('isi_halaman')->fileAttachmentsDisk('public')->fileAttachmentsDirectory('halaman_attachments')
                                     ->required()
                                     ->fileAttachmentsDirectory('halaman_attachments')
                                     ->columnSpanFull(),
-                                FileUpload::make('gambar')
+                                FileUpload::make('gambar')->disk('public')->directory('halaman')
                                     ->image()
                                     ->directory('halaman')
                                     ->columnSpanFull(),
                             ]),
                         Tabs\Tab::make('Publishing Info')
                             ->schema([
-                                TextInput::make('username')
-                                    ->default(auth()->user()?->email ?? 'admin')
-                                    ->required(),
-                                TextInput::make('dibaca')
-                                    ->required()
-                                    ->numeric()
+                                \Filament\Forms\Components\Hidden::make('username')
+                                    ->default(auth()->user()?->email ?? 'admin'),
+                                \Filament\Forms\Components\Hidden::make('dibaca')
                                     ->default(0),
-                                DatePicker::make('tgl_posting')
-                                    ->default(now())
-                                    ->required(),
-                                TimePicker::make('jam')
-                                    ->default(now())
-                                    ->required(),
-                                TextInput::make('hari')
-                                    ->default(now()->locale('id')->dayName)
-                                    ->required(),
+                                \Filament\Forms\Components\Hidden::make('tgl_posting')
+                                    ->default(now()->format('Y-m-d')),
+                                \Filament\Forms\Components\Hidden::make('jam')
+                                    ->default(now()->format('H:i:s')),
+                                \Filament\Forms\Components\Hidden::make('hari')
+                                    ->default(now()->locale('id')->dayName),
                             ])->columns(2),
                     ])->columnSpanFull()
             ]);

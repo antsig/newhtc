@@ -32,14 +32,14 @@ class AlbumForm
                                     ->readOnly(),
                                 Textarea::make('keterangan')
                                     ->columnSpanFull(),
-                                FileUpload::make('gbr_album')
+                                FileUpload::make('gbr_album')->disk('public')->directory('albums')
                                     ->label('Cover Album')
                                     ->image()
                                     ->directory('albums/covers'),
                             ]),
                         Tabs\Tab::make('Koleksi Foto')
                             ->schema([
-                                FileUpload::make('photos')
+                                FileUpload::make('photos')->disk('public')->directory('albums/photos')
                                     ->label('Upload Banyak Foto')
                                     ->multiple()
                                     ->image()
@@ -53,18 +53,14 @@ class AlbumForm
                                     ->options(['Y' => 'Y', 'N' => 'N'])
                                     ->default('Y')
                                     ->required(),
-                                TextInput::make('username')
-                                    ->default(auth()->user()?->email ?? 'admin')
-                                    ->required(),
-                                DatePicker::make('tgl_posting')
-                                    ->default(now())
-                                    ->required(),
-                                TimePicker::make('jam')
-                                    ->default(now())
-                                    ->required(),
-                                TextInput::make('hari')
-                                    ->default(now()->locale('id')->dayName)
-                                    ->required(),
+                                \Filament\Forms\Components\Hidden::make('username')
+                                    ->default(auth()->user()?->email ?? 'admin'),
+                                \Filament\Forms\Components\Hidden::make('tgl_posting')
+                                    ->default(now()->format('Y-m-d')),
+                                \Filament\Forms\Components\Hidden::make('jam')
+                                    ->default(now()->format('H:i:s')),
+                                \Filament\Forms\Components\Hidden::make('hari')
+                                    ->default(now()->locale('id')->dayName),
                             ])->columns(2),
                     ])->columnSpanFull()
             ]);

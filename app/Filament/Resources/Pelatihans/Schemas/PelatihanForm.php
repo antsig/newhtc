@@ -36,10 +36,13 @@ class PelatihanForm
                 DatePicker::make('jadwal'),
                 FileUpload::make('gambar')
                     ->image()
+                    ->disk('public')
                     ->directory('pelatihan')
                     ->columnSpanFull(),
                 RichEditor::make('isi_pelatihan')
                     ->required()
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('pelatihan_attachments')
                     ->columnSpanFull(),
             ]);
     }

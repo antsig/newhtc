@@ -42,6 +42,7 @@ class VideosTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id_video', 'desc');
     }
 }

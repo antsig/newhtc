@@ -14,13 +14,25 @@ class BannerForm
             ->components([
                 TextInput::make('judul')
                     ->required(),
-                TextInput::make('url')
-                    ->url()
+                \Filament\Forms\Components\Hidden::make('url')
+                    ->default('#'),
+                \Filament\Forms\Components\FileUpload::make('gambar')
+                    ->image()
+                    ->directory('banner')
                     ->required(),
-                TextInput::make('gambar')
+                \Filament\Forms\Components\Select::make('posisi')
+                    ->options([
+                        'kanan' => 'Sidebar Kanan',
+                        'kiri' => 'Sidebar Kiri',
+                        'tengah' => 'Tengah (Konten)',
+                    ])
+                    ->default('kanan')
                     ->required(),
-                DatePicker::make('tgl_posting')
-                    ->required(),
+                \Filament\Forms\Components\Toggle::make('is_popup')
+                    ->label('Jadikan Welcome Popup (Hanya 1 yang akan tampil)')
+                    ->default(false),
+                \Filament\Forms\Components\Hidden::make('tgl_posting')
+                    ->default(now()->format('Y-m-d')),
             ]);
     }
 }

@@ -18,7 +18,9 @@ class PelatihanResource extends Resource
 {
     protected static ?string $model = Pelatihan::class;
 
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?int $navigationSort = 7;
 
     protected static ?string $recordTitleAttribute = 'judul';
 
@@ -48,3 +50,4 @@ class PelatihanResource extends Resource
         ];
     }
 }
+

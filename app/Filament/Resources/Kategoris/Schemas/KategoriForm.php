@@ -25,8 +25,14 @@ class KategoriForm
                     ->options(['Y' => 'Y', 'N' => 'N'])
                     ->default('Y')
                     ->required(),
-                TextInput::make('sidebar'),
-                TextInput::make('gambar_utama'),
+                TextInput::make('sidebar')
+                    ->label('Sidebar Khusus')
+                    ->helperText('Kosongkan jika ingin menggunakan sidebar default.')
+                    ->placeholder('Contoh: sidebar_berita'),
+                \Filament\Forms\Components\FileUpload::make('gambar_utama')
+                    ->image()
+                    ->directory('kategori')
+                    ->label('Gambar Utama Kategori'),
             ]);
     }
 }

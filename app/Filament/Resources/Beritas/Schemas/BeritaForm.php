@@ -9,6 +9,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TagsInput;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 
@@ -38,12 +39,15 @@ class BeritaForm
                                     ->required(),
                                 RichEditor::make('isi_berita')
                                     ->required()
+                                    ->fileAttachmentsDisk('public')
                                     ->fileAttachmentsDirectory('berita_attachments')
                                     ->columnSpanFull(),
                             ]),
                         Tabs\Tab::make('Media')
                             ->schema([
                                 FileUpload::make('gambar')
+                                    ->disk('public')
+                                    ->directory('berita')
                                     ->image(),
                                 Textarea::make('keterangan_gambar')
                                     ->columnSpanFull(),
@@ -67,23 +71,19 @@ class BeritaForm
                                     ->options(['Y' => 'Y', 'N' => 'N'])
                                     ->default('Y')
                                     ->required(),
-                                TextInput::make('tag'),
-                                TextInput::make('username')
-                                    ->default(auth()->user()?->email ?? 'admin')
-                                    ->required(),
-                                DatePicker::make('tanggal')
-                                    ->default(now())
-                                    ->required(),
-                                TimePicker::make('jam')
-                                    ->default(now())
-                                    ->required(),
-                                TextInput::make('hari')
-                                    ->default(now()->locale('id')->dayName)
-                                    ->required(),
-                                TextInput::make('dibaca')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->required(),
+                                TagsInput::make('tag')
+                                    ->separator(',')
+                                    ->placeholder('Tambahkan tag...'),
+                                \Filament\Forms\Components\Hidden::make('username')
+                                    ->default(auth()->user()?->email ?? 'admin'),
+                                \Filament\Forms\Components\Hidden::make('tanggal')
+                                    ->default(now()->format('Y-m-d')),
+                                \Filament\Forms\Components\Hidden::make('jam')
+                                    ->default(now()->format('H:i:s')),
+                                \Filament\Forms\Components\Hidden::make('hari')
+                                    ->default(now()->locale('id')->dayName),
+                                \Filament\Forms\Components\Hidden::make('dibaca')
+                                    ->default(0),
                             ])->columns(2),
                     ])->columnSpanFull()
             ]);

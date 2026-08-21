@@ -14,12 +14,12 @@ class HalamanStatisTable
     {
         return $table
             ->columns([
-                Filament\Tables\Columns\ImageColumn::make('gambar')
+                \Filament\Tables\Columns\ImageColumn::make('gambar')->disk('public')
                     ->label('Thumbnail')
                     ->square(),
                 TextColumn::make('judul')
                     ->searchable()
-                    ->description(fn (App\Models\HalamanStatis $record): string => $record->judul_seo ?? ''),
+                    ->description(fn (\App\Models\HalamanStatis $record): string => $record->judul_seo ?? ''),
                 TextColumn::make('dibaca')
                     ->numeric()
                     ->sortable(),
@@ -42,6 +42,7 @@ class HalamanStatisTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

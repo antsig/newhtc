@@ -18,13 +18,13 @@ class BeritasTable
                     ->label('Kategori')
                     ->numeric()
                     ->sortable(),
-                Filament\Tables\Columns\ImageColumn::make('gambar')
+                \Filament\Tables\Columns\ImageColumn::make('gambar')->disk('public')
                     ->label('Gambar / Thumbnail')
                     ->square(),
                 TextColumn::make('judul')
                     ->label('Judul Berita')
                     ->searchable()
-                    ->description(fn (App\Models\Berita $record): string => $record->judul_seo ?? ''),
+                    ->description(fn (\App\Models\Berita $record): string => ($record->judul_seo ?? '') . ' | ' . ($record->tanggal ?? '') . ' | ' . ($record->dibaca ?? '0') . ' views | Tags: ' . ($record->tag ?? '')),
                 TextColumn::make('youtube')
                     ->label('ID Youtube')
                     ->searchable()
@@ -35,14 +35,6 @@ class BeritasTable
                     ->badge(),
                 TextColumn::make('utama')
                     ->badge(),
-                TextColumn::make('tanggal')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('dibaca')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('tag')
-                    ->searchable(),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('created_at')
@@ -64,6 +56,7 @@ class BeritasTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

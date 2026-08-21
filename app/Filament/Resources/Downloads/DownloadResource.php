@@ -18,7 +18,10 @@ class DownloadResource extends Resource
 {
     protected static ?string $model = Download::class;
 
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?int $navigationSort = 3;
+    protected static string|\UnitEnum|null $navigationGroup = 'Media';
 
     protected static ?string $recordTitleAttribute = 'judul';
 
@@ -48,3 +51,4 @@ class DownloadResource extends Resource
         ];
     }
 }
+

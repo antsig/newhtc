@@ -18,8 +18,9 @@ class VideoResource extends Resource
 {
     protected static ?string $model = Video::class;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Media & Iklan';
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-video-camera';
+    protected static ?int $navigationSort = 2;
+    protected static string|\UnitEnum|null $navigationGroup = 'Media';
 
     protected static ?string $recordTitleAttribute = 'judul';
 
@@ -49,3 +50,4 @@ class VideoResource extends Resource
         ];
     }
 }
+

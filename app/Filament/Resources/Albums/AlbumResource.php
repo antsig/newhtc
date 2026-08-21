@@ -18,7 +18,10 @@ class AlbumResource extends Resource
 {
     protected static ?string $model = Album::class;
 
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?int $navigationSort = 1;
+    protected static string|\UnitEnum|null $navigationGroup = 'Media';
 
     public static function form(Schema $schema): Schema
     {
@@ -46,3 +49,4 @@ class AlbumResource extends Resource
         ];
     }
 }
+

@@ -29,6 +29,7 @@ class DownloadsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id_download', 'desc');
     }
 }

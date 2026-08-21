@@ -14,12 +14,12 @@ class BannersTable
     {
         return $table
             ->columns([
-                Filament\Tables\Columns\ImageColumn::make('gambar')
+                \Filament\Tables\Columns\ImageColumn::make('gambar')->disk('public')
                     ->label('Banner')
                     ->square(),
                 TextColumn::make('judul')
                     ->searchable()
-                    ->description(fn (App\Models\Banner $record): string => $record->url ?? ''),
+                    ->description(fn (\App\Models\Banner $record): string => $record->url ?? ''),
                 TextColumn::make('tgl_posting')
                     ->label('Tgl Posting')
                     ->date()
@@ -43,6 +43,7 @@ class BannersTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

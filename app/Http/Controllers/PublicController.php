@@ -14,14 +14,7 @@ use App\Models\Menu;
 
 class PublicController extends Controller
 {
-    public function __construct()
-    {
-        // Share common data to all views
-        $identitas = Identitas::first();
-        $menus = Menu::where('aktif', 'Ya')->orderBy('urutan', 'ASC')->get();
-        View::share('identitas', $identitas);
-        View::share('menus', $menus);
-    }
+
 
     public function beritaIndex()
     {

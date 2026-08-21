@@ -18,7 +18,10 @@ class BeritaResource extends Resource
 {
     protected static ?string $model = Berita::class;
 
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?int $navigationSort = 1;
+    protected static string|\UnitEnum|null $navigationGroup = 'Berita';
 
     public static function form(Schema $schema): Schema
     {
@@ -46,3 +49,4 @@ class BeritaResource extends Resource
         ];
     }
 }
+

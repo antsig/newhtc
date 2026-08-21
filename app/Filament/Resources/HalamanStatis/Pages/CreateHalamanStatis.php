@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateHalamanStatis extends CreateRecord
 {
     protected static string $resource = HalamanStatisResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
